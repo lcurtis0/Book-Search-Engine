@@ -1,3 +1,6 @@
+// The point to this file is create a page for saved books for a user 
+// Data must be entered inorder for the useEffects from React to work
+
 import { useState, useEffect } from 'react';
 import {
   Container,
@@ -11,7 +14,11 @@ import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
+import { useQuery } from '@apollo/client';
 
+import { loggedIn } from '../utils/auth';
+// We have to import API information to these areas of react to make them work
+// In this case 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({
     book1: 'The Great Gatsby',
@@ -22,36 +29,33 @@ const SavedBooks = () => {
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
 
-  if (userDataLength = Object.keys(userData).length) {
-    // useEffects are to access to state and have other react features
-    useEffect(() => {
-      const getUserData = async () => {
-        try {
-          const token = Auth.loggedIn() ? Auth.getToken() : null;
+  // useEffects are to access to state and have other react features
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-          if (!token) {
-            return false;
-          }
-
-          const response = await getMe(token);
-
-          if (!response.ok) {
-            throw new Error('something went wrong!');
-          }
-
-          const user = await response.json();
-          setUserData(user);
-        } catch (err) {
-          console.error(err);
+        if (!token) {
+          return false;
         }
-      };
 
-      getUserData();
-    }, [userDataLength]);
-  }
+        const response = await getMe(token);
+
+        if (!response.ok) {
+          throw new Error('something went wrong!');
+        }
+
+        const user = await response.json();
+        setUserData(user);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getUserData();
+  }, [userDataLength]);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
-
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
