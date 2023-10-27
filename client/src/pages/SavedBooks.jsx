@@ -16,9 +16,11 @@ import { removeBookId } from '../utils/localStorage';
 
 import { useQuery } from '@apollo/client';
 
-import { loggedIn } from '../utils/auth';
+import {}
+
 // We have to import API information to these areas of react to make them work
-// In this case 
+// In this case we must import query profile information
+
 const SavedBooks = () => {
   const [userData, setUserData] = useState({
     book1: 'The Great Gatsby',
