@@ -1,3 +1,8 @@
+
+
+// // The point to this file is create a page for saved books for a user 
+// // Data must be entered inorder for the useEffects from React to work
+
 import { useState, useEffect } from 'react';
 import {
   Container,
@@ -11,47 +16,100 @@ import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
+import { QUERY_BOOK } from '../utils/queries'
+
+import { useQuery } from '@apollo/client';
+
+// -----------------------------------
+// This section is for log in
+
+// import { Navigate, useParams } from 'react-router-dom';
+
+// import { useQuery } from '@apollo/client';
+
+// We have to import API information to these areas of react to make them work
+// In this case we must import query profile information
+// import { QUERY_SINGLE_PROFILE, ME } from '../utils/queries'
+
+// const Profile = () => {
+//   const { profileId } = useParams();
+
+//   const { loading, data } = useQuery(
+//     profileId ? QUERY_SINGLE_PROFILE : ME,
+//     {
+//       variables: { profileId: profileId },
+//     }
+//   );
+
+//   // When the data returns the ME query then QUERY_SINGLE_PROFILE query, if not just an empty object
+
+//   const profile = data?.me || data?.profile || {};
+
+
+//   // The React Router's `<Navigate />` component to redirect to the same profile page based on if profile username matches
+
+//   if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
+//     return <Navigate to="/me" />
+//   }
+
+//   if (loading) {
+//     return <div><h4>Currently Loading...</h4></div>;
+//   }
+
+//   // if profile username doesn't match only this appears
+
+//   if (!profile?.name) {
+//     return (
+//       <h4>
+//         You need to be logged in to see your profile page and any saved books. Use the navigation
+//         links above to sign up or log in!
+//       </h4>
+//     );
+//   }
+// }
+
+// ------------------------------------------
+// This section is for showing books
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({
-    book1: 'The Great Gatsby',
-    book2: 'Good Night Moon',
-    book3: 'How to win friends and influence people',
-  });
+  const [userData, setUserData] = useState({});
 
+  const { bookId } = useQuery(QUERY_BOOK, {
+    variables: {bookId: bookId}
+  })
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
 
-  if (userDataLength = Object.keys(userData).length) {
-    // useEffects are to access to state and have other react features
-    useEffect(() => {
-      const getUserData = async () => {
-        try {
-          const token = Auth.loggedIn() ? Auth.getToken() : null;
+  // useEffects are to access to state and have other react features
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-          if (!token) {
-            return false;
-          }
-
-          const response = await getMe(token);
-
-          if (!response.ok) {
-            throw new Error('something went wrong!');
-          }
-
-          const user = await response.json();
-          setUserData(user);
-        } catch (err) {
-          console.error(err);
+        if (!token) {
+          return false;
         }
-      };
 
-      getUserData();
-    }, [userDataLength]);
-  }
+        const response = await getMe(token);
+
+        if (!response.ok) {
+          throw new Error('something went wrong! Token did not go through!');
+        }
+
+        const user = await response.json();
+        setUserData(user);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getUserData();
+  }, [userDataLength]);
+
+  // ------------------------------------------
+  // This section is for deleting books
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
-
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -116,5 +174,7 @@ const SavedBooks = () => {
     </>
   );
 };
+
+// export default SavedBooks;
 
 export default SavedBooks;
