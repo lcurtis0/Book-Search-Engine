@@ -16,9 +16,9 @@ import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
-import { QUERY_BOOK } from '../utils/queries'
+// import { QUERY_BOOK } from '../utils/queries'
 
-import { useQuery } from '@apollo/client';
+// import { useQuery } from '@apollo/client';
 
 // -----------------------------------
 // This section is for log in
@@ -74,9 +74,11 @@ import { useQuery } from '@apollo/client';
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
 
-  const { bookId } = useQuery(QUERY_BOOK, {
-    variables: {bookId: bookId}
-  })
+  // const { bookId } = useParams();
+
+  // const { data } = useQuery(QUERY_BOOK, {
+  //   variables: {bookId: bookId}
+  // })
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
 
