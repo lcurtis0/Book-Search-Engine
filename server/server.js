@@ -31,12 +31,6 @@ const startApolloServer = async () => {
 
   app.use('/graphql', expressMiddleware(server));
 
-  // Once the variable NODE_ENV is working client dist folder can work
-
-
-
-
-
   // if we're in production, serve client/build as static assets
   // NODE_ENV acts as a open variable indicator to know if the application is runnning locally on the computer or on Heroku
   // This is important because if we are local we can grab client folder and add it to the path
