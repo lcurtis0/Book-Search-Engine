@@ -1,7 +1,7 @@
-// The point to this file is create a page for saved books for a user 
-// Data must be entered inorder for the useEffects from React to work
 
 
+// // The point to this file is create a page for saved books for a user 
+// // Data must be entered inorder for the useEffects from React to work
 
 import { useState, useEffect } from 'react';
 import {
@@ -19,19 +19,14 @@ import { removeBookId } from '../utils/localStorage';
 // -----------------------------------
 // This section is for log in
 
-
-
 import { useQuery } from '@apollo/client';
-
 
 // We have to import API information to these areas of react to make them work
 // In this case we must import query profile information
 import { QUERY_SINGLE_PROFILE, ME } from '../utils/queries'
 
-
 const Profile = () => {
   const { profileId } = useParams();
-
 
   const { loading, data } = useQuery(
     profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
@@ -70,11 +65,7 @@ const Profile = () => {
 // This section is for showing books
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({
-    book1: 'The Great Gatsby',
-    book2: 'Good Night Moon',
-    book3: 'How to win friends and influence people',
-  });
+  const [userData, setUserData] = useState({});
 
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
@@ -120,7 +111,7 @@ const SavedBooks = () => {
       const response = await deleteBook(bookId, token);
 
       if (!response.ok) {
-        throw new Error('something went wrong! Token did not go through!');
+        throw new Error('something went wrong!');
       }
 
       const updatedUser = await response.json();
