@@ -33,8 +33,8 @@ export const QUERY_SINGLE_PROFILE = gql`
 // Having the single book
 
 export const QUERY_BOOK = gql`
-  query book {
-    book {
+  query book($bookId: ID!){
+    book($bookId: ID!) {
       _id
       title
     }

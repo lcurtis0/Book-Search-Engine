@@ -16,57 +16,67 @@ import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
-// -----------------------------------
-// This section is for log in
+import { QUERY_BOOK } from '../utils/queries'
 
 import { useQuery } from '@apollo/client';
 
+// -----------------------------------
+// This section is for log in
+
+// import { Navigate, useParams } from 'react-router-dom';
+
+// import { useQuery } from '@apollo/client';
+
 // We have to import API information to these areas of react to make them work
 // In this case we must import query profile information
-import { QUERY_SINGLE_PROFILE, ME } from '../utils/queries'
+// import { QUERY_SINGLE_PROFILE, ME } from '../utils/queries'
 
-const Profile = () => {
-  const { profileId } = useParams();
+// const Profile = () => {
+//   const { profileId } = useParams();
 
-  const { loading, data } = useQuery(
-    profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
-    {
-      variables: { profileId: profileId },
-    }
-  );
+//   const { loading, data } = useQuery(
+//     profileId ? QUERY_SINGLE_PROFILE : ME,
+//     {
+//       variables: { profileId: profileId },
+//     }
+//   );
 
-  // When the data returns the ME query then QUERY_SINGLE_PROFILE query, if not just an empty object
+//   // When the data returns the ME query then QUERY_SINGLE_PROFILE query, if not just an empty object
 
-  const profile = data?.me || data?.profile || {};
+//   const profile = data?.me || data?.profile || {};
 
 
-  // The React Router's `<Navigate />` component to redirect to the same profile page based on if profile username matches
+//   // The React Router's `<Navigate />` component to redirect to the same profile page based on if profile username matches
 
-  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
-    return <Navigate to="/me" />
-  }
+//   if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
+//     return <Navigate to="/me" />
+//   }
 
-  if (loading) {
-    return <div><h4>Currently Loading...</h4></div>;
-  }
+//   if (loading) {
+//     return <div><h4>Currently Loading...</h4></div>;
+//   }
 
-  // if profile username doesn't match only this appears
+//   // if profile username doesn't match only this appears
 
-  if (!profile?.name) {
-    return (
-      <h4>
-        You need to be logged in to see your profile page and any saved books. Use the navigation
-        links above to sign up or log in!
-      </h4>
-    );
-  }
-}
+//   if (!profile?.name) {
+//     return (
+//       <h4>
+//         You need to be logged in to see your profile page and any saved books. Use the navigation
+//         links above to sign up or log in!
+//       </h4>
+//     );
+//   }
+// }
+
 // ------------------------------------------
 // This section is for showing books
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
 
+  const { bookId } = useQuery(QUERY_BOOK, {
+    variables: {bookId: bookId}
+  })
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
 
@@ -164,5 +174,7 @@ const SavedBooks = () => {
     </>
   );
 };
+
+// export default SavedBooks;
 
 export default SavedBooks;
