@@ -1,6 +1,8 @@
 // The point to this file is create a page for saved books for a user 
 // Data must be entered inorder for the useEffects from React to work
 
+
+
 import { useState, useEffect } from 'react';
 import {
   Container,
@@ -14,12 +16,58 @@ import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
+// -----------------------------------
+// This section is for log in
+
+
+
 import { useQuery } from '@apollo/client';
 
-import {}
 
 // We have to import API information to these areas of react to make them work
 // In this case we must import query profile information
+import { QUERY_SINGLE_PROFILE, ME } from '../utils/queries'
+
+
+const Profile = () => {
+  const { profileId } = useParams();
+
+
+  const { loading, data } = useQuery(
+    profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
+    {
+      variables: { profileId: profileId },
+    }
+  );
+
+  // When the data returns the ME query then QUERY_SINGLE_PROFILE query, if not just an empty object
+
+  const profile = data?.me || data?.profile || {};
+
+
+  // The React Router's `<Navigate />` component to redirect to the same profile page based on if profile username matches
+
+  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
+    return <Navigate to="/me" />
+  }
+
+  if (loading) {
+    return <div><h4>Currently Loading...</h4></div>;
+  }
+
+  // if profile username doesn't match only this appears
+
+  if (!profile?.name) {
+    return (
+      <h4>
+        You need to be logged in to see your profile page and any saved books. Use the navigation
+        links above to sign up or log in!
+      </h4>
+    );
+  }
+}
+// ------------------------------------------
+// This section is for showing books
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({
@@ -44,7 +92,7 @@ const SavedBooks = () => {
         const response = await getMe(token);
 
         if (!response.ok) {
-          throw new Error('something went wrong!');
+          throw new Error('something went wrong! Token did not go through!');
         }
 
         const user = await response.json();
@@ -56,6 +104,9 @@ const SavedBooks = () => {
 
     getUserData();
   }, [userDataLength]);
+
+  // ------------------------------------------
+  // This section is for deleting books
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -69,7 +120,7 @@ const SavedBooks = () => {
       const response = await deleteBook(bookId, token);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error('something went wrong! Token did not go through!');
       }
 
       const updatedUser = await response.json();

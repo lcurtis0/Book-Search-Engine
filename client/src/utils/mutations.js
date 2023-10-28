@@ -30,7 +30,7 @@ export const ADD_BOOK = gql`
   mutation addbook($profileId: ID!, $book: String!) {
     addbook(profileId: $profileId, book: $book) {
       _id
-      name
+      title
       books
     }
   }

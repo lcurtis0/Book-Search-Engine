@@ -25,7 +25,7 @@ export const QUERY_SINGLE_PROFILE = gql`
     profile(profileId: $profileId) {
       _id
       name
-      skills
+      books
     }
   }
 `;
@@ -36,7 +36,7 @@ export const QUERY_BOOK = gql`
   query book {
     book {
       _id
-      name
+      title
     }
   }
 `;
