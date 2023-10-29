@@ -1,11 +1,9 @@
 
-// Resolvers populate the adta in the schema 
+// Resolvers populate the data in the schema 
 
-// This will be used for the google api for books
+// This will be used for the google api for books and users who make an account. Note how the properties lines up with the models
 
 // This file was heavily reference by activity 25
-
-
 
 const { Book, User } = require('../models');
 
@@ -77,7 +75,6 @@ const resolvers = {
         // This section is for deleting a existing book
 
         // This can only work if the user is logged in
-
         removeBook: async (parent, { book }, context) => {
             if (context.user) {
                 return Profile.findOneAndUpdate(
@@ -88,5 +85,7 @@ const resolvers = {
             }
             throw AuthenticationError;
         },
-    }
-}
+    },
+};
+
+module.exports = resolvers;
