@@ -7,26 +7,37 @@ type Profile {
     name: String
     email: String
     password: String
-    books: [String]!
-    # For the array of books added
+    # ! mesas it is a required field 
+    books: [Book]!
+    # 
   }
 
   type Auth {
     token: ID!
     profile: Profile
   }
+
+  type Book {
+    title: String!
+    bookId: ID!
+    authors: [String]
+    description: String
+    image: String
+    link: String!
+  }
   
   type Query {
-    profiles: [Profile]!
-    profile(profileId: ID!): Profile
+    user: Profile
     # Once the profiles are checked in the resolvers file and parse it's data, we can use a query that will always find and return the logged in user's data
 
-    me: Profile
   }
+
 
   type Mutation {
 
     # For each property in mutation needs to be assigned a primative type as well
+
+    # AFter entering the input for data it expects and auth 
 
     addProfile(name: String!, email: String!, password: String!): Auth
     loginUser(email: String!, password: String!): Auth

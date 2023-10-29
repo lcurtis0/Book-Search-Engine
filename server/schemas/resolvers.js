@@ -9,18 +9,17 @@ const { Book, User } = require('../models');
 
 const resolvers = {
     Query: {
-        book: async () => {
-            return Book.find({});
-        },
         user: async (parent, { _id }) => {
             const params = _id ? { _id } : {};
             return User.find(params);
+
         },
     },
 
     // Add profile must have name, email, password passed in and must take those values to create a token for it
     Mutation: {
         addProfile: async (parent, { name, email, password }) => {
+            console.log(" Hello " + email);
             const profile = await Profile.create({ name, email, password });
             const token = signToken(profile);
 
