@@ -1,4 +1,3 @@
-
 const express = require('express');
 
 // This for testing queries with Apollo every time the server runs
@@ -9,7 +8,7 @@ const path = require('path');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3011;
 const app = express();
 
 
