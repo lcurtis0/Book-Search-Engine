@@ -3,7 +3,12 @@
 
 // This will be used for the google api for books and users who make an account. Note how the properties lines up with the models
 
+// This acts as the how can you get it
+
 // This file was heavily reference by activity 25
+
+const { Profile } = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const { Book, User } = require('../models');
 
