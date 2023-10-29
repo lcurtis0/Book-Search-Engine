@@ -14,8 +14,8 @@ import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 // ------------------------------
 
-import { useQuery } from '@apollo/client';
-import { QUERY_PROFILES } from '../utils/queries';
+// import { useQuery } from '@apollo/client';
+// import { QUERY_PROFILES } from '../utils/queries';
 
 const SearchBooks = () => {
   // create state for holding returned google api data
