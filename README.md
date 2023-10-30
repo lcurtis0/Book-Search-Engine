@@ -58,7 +58,11 @@ pages/ SavedBooks
 
 pages/ SearchBooks
 
+List
 
+in Vite.config may change proxy form api to graphql '/graphql':
+
+Error addProfile "User validation failed: username: Path `username` is required."
 
 
 
