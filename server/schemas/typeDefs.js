@@ -1,5 +1,7 @@
 // typeDefs returns the string that describes the data structure in graphql
 
+// This acts as the what can you get it
+
 const typeDefs = `
 
 type Profile {
@@ -7,31 +9,56 @@ type Profile {
     name: String
     email: String
     password: String
-    books: [String]!
-    # For the array of books added
+
+    # ! means it is a required field 
+
+    books: [Book]
+
+    # Book is a type that will be filled in for the array because it holds all the properties unlike string
   }
 
   type Auth {
+
+    # This will be returned when the profile infromation lines up
+
     token: ID!
     profile: Profile
   }
+
+  type Book {
+    title: String!
+    bookId: ID!
+    authors: [String]
+    description: String
+    image: String
+    link: String!
+  }
   
   type Query {
-    profiles: [Profile]!
-    profile(profileId: ID!): Profile
+
+    # user and profile act as one and the same
+
+    user: Profile
+     
     # Once the profiles are checked in the resolvers file and parse it's data, we can use a query that will always find and return the logged in user's data
 
-    me: Profile
   }
+
 
   type Mutation {
 
     # For each property in mutation needs to be assigned a primative type as well
 
+    # AFter entering the input for data it expects and auth 
+
     addProfile(name: String!, email: String!, password: String!): Auth
+
     loginUser(email: String!, password: String!): Auth
 
     addBook(profileId: ID!, book: String!): Profile
+
+    # removeProfile is not necessary but still added in case of further modification
+
     removeProfile: Profile
     removeBook(book: String!): Profile
   }

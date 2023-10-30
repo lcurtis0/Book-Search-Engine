@@ -3,30 +3,40 @@
 
 // This will be used for the google api for books and users who make an account. Note how the properties lines up with the models
 
+// This acts as the how can you get it
+
 // This file was heavily reference by activity 25
+
+const { Profile } = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const { Book, User } = require('../models');
 
 const resolvers = {
     Query: {
-        book: async () => {
-            return Book.find({});
-        },
         user: async (parent, { _id }) => {
             const params = _id ? { _id } : {};
             return User.find(params);
+
         },
     },
 
     // Add profile must have name, email, password passed in and must take those values to create a token for it
     Mutation: {
-        addProfile: async (parent, { name, email, password }) => {
+        addProfile: async (parent,{ name, email, password }) => {
+
+            console.log(" Hello " + email);
+
+            // console.log(" Hello " + email + name + password);
             const profile = await Profile.create({ name, email, password });
+
+            console.log(" After create Profile ");
+
             const token = signToken(profile);
 
             return { token, profile };
         },
-        loginUser: async (parent, { email, password }) => {
+        loginUser: async (parent,{ email, password }) => {
             const profile = await Profile.findOne({ email });
 
             if (!profile) {
