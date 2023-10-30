@@ -25,13 +25,22 @@ type Profile {
     profile: Profile
   }
 
-  type Book {
+ input BookInput {
     title: String!
-    bookId: ID!
+    bookId: String
     authors: [String]
     description: String
     image: String
-    link: String!
+    link: String
+  }
+
+  type Book {
+    title: String!
+    bookId: String
+    authors: [String]
+    description: String
+    image: String
+    link: String
   }
   
   type Query {
@@ -55,7 +64,7 @@ type Profile {
 
     loginUser(email: String!, password: String!): Auth
 
-    addBook(profileId: ID!, book: String!): Profile
+    addBook(profileId: ID!, book: BookInput!): Profile
 
     # removeProfile is not necessary but still added in case of further modification
 
@@ -65,4 +74,4 @@ type Profile {
 
   `;
 
-  module.exports = typeDefs;
+module.exports = typeDefs;

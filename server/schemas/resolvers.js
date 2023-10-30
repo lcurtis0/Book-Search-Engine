@@ -56,8 +56,9 @@ const resolvers = {
 
         addBook: async (parent, { profileId, book }, context) => {
             // If context has a `user` property, meaning if the user is loggedin, this will trigger this will assign a new book
+            console.log("profile and book" + profileId, book )
             if (context.user) {
-                return User.findOneAndUpdate(
+                return await User.findOneAndUpdate(
                     {
                         _id: profileId
                     },
@@ -68,7 +69,10 @@ const resolvers = {
                         new: true,
                         runValidators: true,
                     }
-                );
+                )
+                .catch((err)=> {
+                    console.log(err);
+                })
             }
             // If user asks to add a book and isn't logged in, it will throw an error
             throw AuthenticationError;
