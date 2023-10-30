@@ -7,7 +7,6 @@
 
 // This file was heavily reference by activity 25
 
-const { Profile } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const { Book, User } = require('../models');
