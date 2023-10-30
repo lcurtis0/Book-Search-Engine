@@ -7,7 +7,6 @@
 
 // This file was heavily reference by activity 25
 
-const { Profile } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const { Book, User } = require('../models');
@@ -28,16 +27,16 @@ const resolvers = {
             console.log(" Hello " + email);
 
             // console.log(" Hello " + email + name + password);
-            const profile = await Profile.create({ name, email, password });
+            const profile = await User.create({ name, email, password });
 
-            console.log(" After create Profile ");
+            console.log(" After create User ");
 
             const token = signToken(profile);
 
             return { token, profile };
         },
         loginUser: async (parent,{ email, password }) => {
-            const profile = await Profile.findOne({ email });
+            const profile = await User.findOne({ email });
 
             if (!profile) {
                 throw AuthenticationError;
@@ -58,7 +57,7 @@ const resolvers = {
         addBook: async (parent, { profileId, book }, context) => {
             // If context has a `user` property, meaning if the user is loggedin, this will trigger this will assign a new book
             if (context.user) {
-                return Profile.findOneAndUpdate(
+                return User.findOneAndUpdate(
                     {
                         _id: profileId
                     },
@@ -79,7 +78,7 @@ const resolvers = {
 
         removeProfile: async (parent, args, context) => {
             if (context.user) {
-                return Profile.findOneAndDelete({ _id: context.user._id });
+                return User.findOneAndDelete({ _id: context.user._id });
             }
             throw AuthenticationError;
         },
@@ -89,7 +88,7 @@ const resolvers = {
         // This can only work if the user is logged in
         removeBook: async (parent, { book }, context) => {
             if (context.user) {
-                return Profile.findOneAndUpdate(
+                return User.findOneAndUpdate(
                     { _id: context.user._id },
                     { $pull: { books: book } },
                     { new: true }
