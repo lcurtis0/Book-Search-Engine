@@ -20,14 +20,14 @@ const resolvers = {
         },
     },
 
-    // Add profile must have name, email, password passed in and must take those values to create a token for it
+    // Add profile must have username, email, password passed in and must take those values to create a token for it
     Mutation: {
-        addProfile: async (parent,{ name, email, password }) => {
+        addProfile: async (parent,{ username, email, password }) => {
 
             console.log(" Hello " + email);
 
-            // console.log(" Hello " + email + name + password);
-            const profile = await User.create({ name, email, password });
+            // console.log(" Hello " + email + username + password);
+            const profile = await User.create({ username, email, password });
 
             console.log(" After create User ");
 

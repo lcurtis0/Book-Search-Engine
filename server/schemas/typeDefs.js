@@ -6,7 +6,7 @@ const typeDefs = `
 
 type Profile {
     _id: ID
-    name: String
+    username: String
     email: String
     password: String
 
@@ -51,7 +51,7 @@ type Profile {
 
     # AFter entering the input for data it expects and auth 
 
-    addProfile(name: String!, email: String!, password: String!): Auth
+    addProfile(username: String!, email: String!, password: String!): Auth
 
     loginUser(email: String!, password: String!): Auth
 
