@@ -63,7 +63,7 @@ type Profile {
 
     # For each property in mutation needs to be assigned a primative type as well
 
-    # AFter entering the input for data it expects and auth 
+    # After entering the input for data it expects and auth 
 
     addProfile(username: String!, email: String!, password: String!): Auth
 
@@ -73,7 +73,7 @@ type Profile {
 
     # removeProfile is not necessary but still added in case of further modification
 
-    removeProfile: Profile
+    removeProfile(profileId: ID!): Profile
     removeBook(book: String!): Profile
   }
 

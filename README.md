@@ -46,23 +46,21 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 
 ----------------------
 
-Must add GraphQl
-
-utils/API.js
-
-utils/auth.js
-
-utils/localStorage.js
-
 pages/ SavedBooks
 
 pages/ SearchBooks
 
+components/LoginForm
+
+components/SignupForm
+
+components/Navbar
+
 List
 
-in Vite.config may change proxy form api to graphql '/graphql':
 
-Error addProfile "User validation failed: username: Path `username` is required."
+
+
 
 
 
