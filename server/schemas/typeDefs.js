@@ -6,7 +6,7 @@ const typeDefs = `
 
 type Profile {
     _id: ID
-    name: String
+    username: String
     email: String
     password: String
 
@@ -25,18 +25,32 @@ type Profile {
     profile: Profile
   }
 
-  type Book {
+ input BookInput {
     title: String!
-    bookId: ID!
+    bookId: String
     authors: [String]
     description: String
     image: String
-    link: String!
+    link: String
+  }
+
+  type Book {
+    title: String!
+    bookId: String
+    authors: [String]
+    description: String
+    image: String
+    link: String
   }
   
   type Query {
 
-    # user and profile act as one and the same
+    # profiles is an array that will hold all "Profiles" meaning all users
+
+    profiles: [Profile]!
+    profile(profileId: ID!): Profile
+
+    # user and profile act as one and the same because the user represents the Profile
 
     user: Profile
      
@@ -51,11 +65,11 @@ type Profile {
 
     # AFter entering the input for data it expects and auth 
 
-    addProfile(name: String!, email: String!, password: String!): Auth
+    addProfile(username: String!, email: String!, password: String!): Auth
 
     loginUser(email: String!, password: String!): Auth
 
-    addBook(profileId: ID!, book: String!): Profile
+    addBook(profileId: ID!, book: BookInput!): Profile
 
     # removeProfile is not necessary but still added in case of further modification
 
@@ -65,4 +79,4 @@ type Profile {
 
   `;
 
-  module.exports = typeDefs;
+module.exports = typeDefs;

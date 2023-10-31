@@ -13,21 +13,33 @@ const { Book, User } = require('../models');
 
 const resolvers = {
     Query: {
-        user: async (parent, { _id }) => {
-            const params = _id ? { _id } : {};
-            return User.find(params);
 
+        profiles: async () => {
+            return Profile.find();
+        },
+
+        profile: async (parent, { profileId }) => {
+            return Profile.findOne({ _id: profileId });
+        },
+
+        // By adding context to our query, we can retrieve the logged in user without specifically searching for them
+        user: async (parent, args, context, { _id }) => {
+            if (context.user) {
+                const params = _id ? { _id } : {};
+                return User.find(params);
+            }
+            throw AuthenticationError;
         },
     },
 
-    // Add profile must have name, email, password passed in and must take those values to create a token for it
+    // Add profile must have username, email, password passed in and must take those values to create a token for it
     Mutation: {
-        addProfile: async (parent,{ name, email, password }) => {
+        addProfile: async (parent, { username, email, password }) => {
 
             console.log(" Hello " + email);
 
-            // console.log(" Hello " + email + name + password);
-            const profile = await User.create({ name, email, password });
+            // console.log(" Hello " + email + username + password);
+            const profile = await User.create({ username, email, password });
 
             console.log(" After create User ");
 
@@ -35,7 +47,7 @@ const resolvers = {
 
             return { token, profile };
         },
-        loginUser: async (parent,{ email, password }) => {
+        loginUser: async (parent, { email, password }) => {
             const profile = await User.findOne({ email });
 
             if (!profile) {
@@ -56,8 +68,10 @@ const resolvers = {
 
         addBook: async (parent, { profileId, book }, context) => {
             // If context has a `user` property, meaning if the user is loggedin, this will trigger this will assign a new book
+            console.log("profile and book" + profileId, book)
             if (context.user) {
-                return User.findOneAndUpdate(
+                console.log("context.user " + context.user)
+                return await User.findOneAndUpdate(
                     {
                         _id: profileId
                     },
@@ -68,7 +82,10 @@ const resolvers = {
                         new: true,
                         runValidators: true,
                     }
-                );
+                )
+                    .catch((err) => {
+                        console.log(err);
+                    })
             }
             // If user asks to add a book and isn't logged in, it will throw an error
             throw AuthenticationError;
