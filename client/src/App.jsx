@@ -20,7 +20,7 @@ function App() {
 
     // Wrap your component tree with the ApolloProvider component to enable access all other components using the ApolloClient and as a result add data to each component if need be
 
-    // This is because it is a parent to the client 
+    // This is because it is a parent to everything in the client 
 
     <ApolloProvider client={client}>
       <div className="flex-column justify-flex-start min-100-vh">
