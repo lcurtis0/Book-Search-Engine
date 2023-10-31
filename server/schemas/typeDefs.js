@@ -45,7 +45,12 @@ type Profile {
   
   type Query {
 
-    # user and profile act as one and the same
+    # profiles is an array that will hold all "Profiles" meaning all users
+
+    profiles: [Profile]!
+    profile(profileId: ID!): Profile
+
+    # user and profile act as one and the same because the user represents the Profile
 
     user: Profile
      
