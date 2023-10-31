@@ -11,8 +11,17 @@ export const QUERY_PROFILES = gql`
   query allProfiles {
     profiles {
       _id
-      name
-      books
+      username
+      password
+      email
+      books {
+        title
+        bookId
+        authors
+        description
+        image
+        link
+      }
     }
   }
 `;
@@ -24,46 +33,49 @@ export const QUERY_SINGLE_PROFILE = gql`
   query singleProfile($profileId: ID!) {
     profile(profileId: $profileId) {
       _id
-      name
-      books
+      username
+      email
+      password
+      books {
+        title
+        bookId
+        authors
+        description
+        image
+        link
+      }
     }
-  }
 `;
 
 // Having the single book
 
-export const QUERY_BOOK = gql`
-  query book($bookId: ID!){
-    book($bookId: ID!) {
-      _id
-      title
-    }
-  }
-`;
-
-// For representing the user and their books
-
-export const ME = gql`
-query me {
-    me {
-      _id
-      name
-      book
-    }
-  }
-`;
- 
-
-// May want to reference
-
-// export const QUERY_MATCHUPS = gql`
-//   query matchups($_id: String) {
-//     matchups(_id: $_id) {
+// export const QUERY_BOOK = gql`
+//   query book($bookId: ID!){
+//     book($bookId: ID!) {
 //       _id
-//       tech1
-//       tech2
-//       tech1_votes
-//       tech2_votes
+//       title
 //     }
 //   }
 // `;
+
+// For representing the user and their books
+
+export const USER = gql`
+query User {
+  user {
+    _id
+    username
+    email
+    password
+    books {
+      title
+      bookId
+      authors
+      description
+      image
+      link
+    }
+  }
+}
+`;
+ 
