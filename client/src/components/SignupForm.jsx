@@ -14,7 +14,7 @@ const SignupForm = () => {
     password: ''
   });
 
-  const [addProfile, { error, data }] = useMutation(ADD_PROFILE);
+  const [addProfile, { data }] = useMutation(ADD_PROFILE);
 
   // set state for form validation
   const [validated] = useState(false);
@@ -56,9 +56,6 @@ const SignupForm = () => {
     const { token, user } = await data.json();
     console.log(user);
     Auth.login(token);
-  } catch (err) {
-    console.error(err);
-    setShowAlert(true);
   }
 
   setUserFormData({
