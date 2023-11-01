@@ -59,7 +59,7 @@ components/Navbar
 List
 
 
-
+(Week 21) Login and sign up are working fine on the server side of the app but when trying to use sign up on the front end I receive an error at handleSubmitForm. I didn't 
 
 
 
