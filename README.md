@@ -41,9 +41,9 @@ N/A
 # Deployment
 Evaluated environment url:  https://lcurtis0.github.io/Book-Search-Engine/
 
-Netlify deployment: 
+Netlify deployment: https://startling-ganache-464ec3.netlify.app
 
-Netlify site: 
+Netlify site: https://app.netlify.com/sites/startling-ganache-464ec3/deploys
 
 Badges
 N/A
