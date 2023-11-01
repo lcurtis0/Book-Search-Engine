@@ -6,9 +6,9 @@ This files are created to complete the Module 21 challenge-21
 
 The goal of this app is to browse and record books to profile. 
 
-This is so that to it easy to have a histor yof the books seen before and can beused for e commerce projects.
+This is so that to it easy to have a history of the books seen before and can be used for e-commerce projects. 📐✂🔎
 
-I learned that Grpahql is really easy tool to 
+I learned that Grpahql along with Apollo is really easy tool to visualize and explain data that otherwise would be abstract and confusing. I also learned that Express routes can be used as middleware between the client and server folders.
 
 Table of Contents
 - [Description](#Decription)
@@ -26,25 +26,25 @@ Must "npm i" then
 
 npm build to make dist folder
 
-Users have to run "npm run start" to activate package.jsons 
+Users have to run "npm run develop" to activate package.jsons 
 
 ![alttext](./Assets/images/Top.png)
 ![alttext](./Assets/images/Bottom.png)
 
 # Credits
 
-credit to devBotPlus for email check : https://www.youtube.com/watch?v=eAIVqD02KjU&ab_channel=devBotPlus
+N/A
 
 # License
 
 '![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)'
 
 # Deployment
-Evaluated environment url:  https://lcurtis0.github.io/REACT-Portfolio/
+Evaluated environment url:  
 
-Netlify deployment: https://benevolent-druid-e681e4.netlify.app/
+Netlify deployment:
 
-Netlify site: https://app.netlify.com/sites/benevolent-druid-e681e4/deploys
+Netlify site: 
 
 Badges
 N/A
