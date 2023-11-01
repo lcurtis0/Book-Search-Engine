@@ -39,9 +39,9 @@ N/A
 '![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)'
 
 # Deployment
-Evaluated environment url:  
+Evaluated environment url:  https://lcurtis0.github.io/Book-Search-Engine/
 
-Netlify deployment:
+Netlify deployment: 
 
 Netlify site: 
 
