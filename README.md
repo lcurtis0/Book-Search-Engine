@@ -28,8 +28,7 @@ npm build to make dist folder
 
 Users have to run "npm run develop" to activate package.jsons 
 
-![alttext](./Assets/images/Top.png)
-![alttext](./Assets/images/Bottom.png)
+![alttext](./client/src/assets/Screenshot%20(259).png)
 
 # Credits
 
