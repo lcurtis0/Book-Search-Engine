@@ -13,8 +13,6 @@ import {
 
 import { getMe, deleteBook } from '../utils/API';
 
-// import { USER } from '../utls/queries'
-
 import { QUERY_SINGLE_PROFILE,  USER } from '../utils/queries';
 
 import Auth from '../utils/auth';
